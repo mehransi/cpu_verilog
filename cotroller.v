@@ -1,4 +1,4 @@
-module control(input [4:0] opcode, input reset, output reg rwr, ma1,
+module Control(input [4:0] opcode, input reset, output reg rwr, ma1,
  op1, mem_write, reg_write, rFI, rFO, sFO, ION, IOF,
  output reg [1:0] pc_selector, rwd, mem_read, op2, output reg[2:0] ALUOp);
 
@@ -7,7 +7,7 @@ always @(opcode, reset) begin
 		rwr = 0;
 		rwd = 0;
 		reg_write = 0;
-		mem_read = 0;
+		mem_read = 0;  //data_mem_read
 		mem_write = 0;
 		pc_selector = 0;
 		ALUOp = 0;

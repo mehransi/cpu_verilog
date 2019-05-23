@@ -1,5 +1,5 @@
-module ALU(output reg [31:0] result, output V,C,Z,S,
-input [31:0] a, b, input [2:0] ALUOp);
+module ALU(output reg signed[31:0] result, output V,C,Z,S,
+input signed [31:0] a, b, input [2:0] ALUOp);
 
 assign Z = (result == 0)? 1 : 0;
 assign S = result[31];
