@@ -5,7 +5,7 @@ wire signed [31:0] alu_result;
 wire [31:0] pc, ir, rin, rout;
 wire [7:0] flags;
 
-CPU uut(clk , rst, enable, alu_result, pc, ir, rin, rout, flags);
+CPU uut(clk , rst, enable, alu_result, pc, ir, flags);
 
 always 
 	#1 clk = ~clk;

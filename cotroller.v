@@ -1,4 +1,4 @@
-module Control(input [4:0] opcode, input reset, output reg rwr, ma1,
+module Control(input [4:0] opcode, input reset,zero, output reg rwr, ma1,
  op1, mem_write, reg_write, rFI, rFO, sFO, ION, IOF,
  output reg [1:0] pc_selector, rwd, mem_read, op2, output reg[2:0] ALUOp);
 
@@ -120,7 +120,7 @@ always @(opcode, reset) begin
 
 		5'b01011:begin  //jz
 		ALUOp = 0; rwr = 0; rwd = 0; ma1 = 0; mem_read = 0; mem_write = 0; sFO = 0;
-		reg_write = 0; op1 = 0; op2 = 0; pc_selector = 1; rFI = 0; rFO = 0; ION = 0; IOF = 0;
+		reg_write = 0; op1 = 0; op2 = 0; pc_selector = zero; rFI = 0; rFO = 0; ION = 0; IOF = 0;
 		end
 
 		5'b01100:begin  //jp

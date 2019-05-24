@@ -1,23 +1,30 @@
+`timescale 1ns / 1ps
 module CPU(input clk, rst, memory_enable, output signed [31:0] alu_result,
- output [31:0] PC, IR, output reg[31:0] R_in, R_out, output [7:0] flag_register);
+ output [31:0] PC, IR, output [7:0] flag_register);
 
-parameter n = 2097152;
+parameter n = 4194304;
 wire RES = 0;
 reg [31:0] current_pc ;
 wire [31:0] next_pc;
+wire [4:0] opcode;
+reg signed [31:0] R_in, R_out;
 
+wire [31:0] pc1 = current_pc + 1;
 
 always @(posedge clk) begin
+	$display("pc %h", current_pc);
+	$display("mem_data1",mem_data1);
+	$display("alu_result",alu_res);
+	$display("register_write_data", register_write_data);
+	$display("rwr=%d , rwd=%d", rwr,rwd);
 	if (rst) begin
 		current_pc <= n/2;
 		R_in <= 0;
 		R_out <= 0;
 	end
-	else
+	else if(opcode != 5'b11111)
 		current_pc <= next_pc;
 end
-
-wire [31:0] pc1 = current_pc + 1;
 
 //defining output of modules
 wire rwr, ma1, op1, mem_write,
@@ -39,12 +46,12 @@ wire [21:0] twenty_one_to_zero = current_ir[21:0];
 //defining input of modules
 //RegisterFile inputs
 wire [4:0] reg1, reg2, write_reg;
-wire [31:0] register_write_data;
+wire signed [31:0] register_write_data;
 assign reg1 = current_ir[26:22];
 assign reg2 = current_ir[21:17];
-assign write_reg = (rwr == 0) ? current_ir[16:12] : reg1;
+assign write_reg = (rwr == 0) ? current_ir[16:12] : current_ir[26:22];
 assign register_write_data = (rwd == 0) ? alu_res : 
-((rwd == 1)? {{10{twenty_one_to_zero[21]}},twenty_one_to_zero} : mem_data1);
+((rwd == 2)? mem_data1  :({{10{twenty_one_to_zero[21]}},twenty_one_to_zero}));
 
 //ALU inputs
 wire signed [31:0] operand1 = (op1 == 0) ? reg_data1 : mem_data1;
@@ -59,7 +66,7 @@ wire [31:0] address2 = reg_data2;
 wire [31:0] memory_write_data = reg_data1;
 
 //Controller inputs
-wire [4:0] opcode = current_ir[31:27];
+assign opcode = current_ir[31:27];
 //end defining input of modules
 
 
@@ -76,7 +83,7 @@ Memory memory(mem_data1, mem_data2, current_ir, address1, address2,
 current_pc, memory_write_data, rst, EN, clk, mem_write, mem_read);
 
 // instantiate Controller
-Control control(opcode, rst, rwr, ma1,op1,mem_write, reg_write, rFI, rFO,
+Control control(opcode, rst,Z, rwr, ma1,op1,mem_write, reg_write, rFI, rFO,
 sFO, ION, IOF, pc_selector, rwd, mem_read, op2,ALUOp);
 //end instantiating modules
 
@@ -91,9 +98,10 @@ wire FO = rFO ? 0 : (sFO ? 1 : FO);
 assign flag_register = {V, C, Z, S, INT, FI, FO, RES};
 
 // handling program counter (PC) ...
-wire tw1 = {{10{1'b0}},twenty_one_to_zero};
-wire tw6 = {{5{1'b0}}, current_ir[26:0]};
+wire [31:0] tw1 = {{10{1'b0}},twenty_one_to_zero};
+wire [31:0] tw6 = {{5{1'b0}}, current_ir[26:0]};
 
 assign next_pc = (pc_selector == 0) ? pc1 : (pc_selector == 1 ? tw6 : tw1);
+
 
 endmodule

@@ -8,6 +8,9 @@ assign data2 = registers[reg2];
 
 integer i;
 always @(posedge clk) begin
+	for (i=0;i<4;i=i+1) begin
+		$display("register %d\t%d",i,registers[i]);
+	end
 	if (rst) begin
 		for (i=0;i<32;i=i+1) begin
 			registers[i] <= 0;
