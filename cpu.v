@@ -1,10 +1,23 @@
 module CPU(input clk, rst, memory_enable, output signed [31:0] alu_result,
- PC, IR, R_in, R_out, output [7:0] flag_register);
+ output [31:0] PC, IR, output reg[31:0] R_in, R_out, output [7:0] flag_register);
 
 parameter n = 2097152;
 wire RES = 0;
-reg [31:0] R_IN, R_OUT;
-reg [31:0] current_pc;
+reg [31:0] current_pc ;
+wire [31:0] next_pc;
+
+
+always @(posedge clk) begin
+	if (rst) begin
+		current_pc <= n/2;
+		R_in <= 0;
+		R_out <= 0;
+	end
+	else
+		current_pc <= next_pc;
+end
+
+wire [31:0] pc1 = current_pc + 1;
 
 //defining output of modules
 wire rwr, ma1, op1, mem_write,
@@ -39,11 +52,11 @@ wire signed [31:0] operand2 = (op2 == 0) ? reg_data2 :
 ((op2 == 1) ? mem_data2 :((op2 == 2)? 1 : -1 ) ) ;
 
 //Memory inputs
-wire address1 = (ma1 == 0) ? reg_data1 : {{10{twenty_one_to_zero[21]}},
+wire [31:0] address1 = (ma1 == 0) ? reg_data1 : {{10{twenty_one_to_zero[21]}},
  twenty_one_to_zero};
-wire address2 = reg_data2;
-wire instruction_address = current_pc;
-wire memory_write_data = reg_data1;
+wire [31:0] address2 = reg_data2;
+// current_pc is instruction address
+wire [31:0] memory_write_data = reg_data1;
 
 //Controller inputs
 wire [4:0] opcode = current_ir[31:27];
@@ -60,7 +73,7 @@ ALU alu(alu_res, V, C, Z, S, operand1, operand2, ALUOp);
 
 // instantiate Memory
 Memory memory(mem_data1, mem_data2, current_ir, address1, address2,
-instruction_address, memory_write_data, rst, EN, clk, mem_write, mem_read);
+current_pc, memory_write_data, rst, EN, clk, mem_write, mem_read);
 
 // instantiate Controller
 Control control(opcode, rst, rwr, ma1,op1,mem_write, reg_write, rFI, rFO,
@@ -77,8 +90,10 @@ wire FI = rFI ? 0 : FI;
 wire FO = rFO ? 0 : (sFO ? 1 : FO);
 assign flag_register = {V, C, Z, S, INT, FI, FO, RES};
 
-// handling program counter (PC)
+// handling program counter (PC) ...
+wire tw1 = {{10{1'b0}},twenty_one_to_zero};
+wire tw6 = {{5{1'b0}}, current_ir[26:0]};
 
-
+assign next_pc = (pc_selector == 0) ? pc1 : (pc_selector == 1 ? tw6 : tw1);
 
 endmodule

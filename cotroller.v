@@ -14,6 +14,11 @@ always @(opcode, reset) begin
 		ma1 = 0;
 		op1 = 0;
 		op2 = 0;
+		rFI = 1;
+		sFO = 0;
+		rFO = 1;
+		ION = 1;
+		IOF = 0;
 	end 
 	else begin
 	case(opcode)
@@ -174,6 +179,11 @@ always @(opcode, reset) begin
 		end
 
 		5'b11111:begin  //HLT
+		ALUOp = 0; rwr = 0; rwd = 0; ma1 = 0; mem_read = 0; mem_write = 0; sFO = 0;
+		reg_write = 0; op1 = 0; op2 = 0; pc_selector = 0; rFI = 0; rFO = 0; ION = 0; IOF = 0;
+		end
+
+		default:begin 
 		ALUOp = 0; rwr = 0; rwd = 0; ma1 = 0; mem_read = 0; mem_write = 0; sFO = 0;
 		reg_write = 0; op1 = 0; op2 = 0; pc_selector = 0; rFI = 0; rFO = 0; ION = 0; IOF = 0;
 		end

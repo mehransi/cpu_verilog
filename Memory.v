@@ -1,14 +1,16 @@
 module Memory(output reg signed[31:0] data1, data2, output [31:0] instruction,
-input [31:0] address1, address2, instruction_address, write_data, input reset, EN, clk, mem_write, mem_read);
+input [31:0] address1, address2, instruction_address, write_data, input reset, EN, clk, mem_write, input [1:0] mem_read);
 
 parameter n = 2097152;  // memory is like array[n][32];
 reg [31:0] ram[0:n-1];
 
 integer i;
 
-assign instruction = (reset != 1) ? ((instruction_address >= n/2) ? ram[instruction_address] : 0) : 0;
+assign instruction = (reset != 1) ? ((instruction_address >= n/2) ? ram[instruction_address]
+ : 32'hFFFFFFFF) : 32'hFFFFFFFF;
 always @(posedge clk)
 begin
+	$display(ram[instruction_address], instruction_address);
 	if (reset) begin
 		data1 <= 0;
 		data2 <= 0;
