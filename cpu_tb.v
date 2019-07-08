@@ -8,13 +8,13 @@ wire [7:0] flags;
 CPU uut(clk , rst, enable, alu_result, pc, ir, flags);
 
 always 
-	#1 clk = ~clk;
+	#86 clk = ~clk;
 
 initial begin
 	clk = 0;
 	rst = 1;
 	enable = 1;
-	#5 rst = 0;
+	#450 rst = 0;
 	
 end
 
