@@ -1,3 +1,4 @@
+`timescale 1ns / 1ps
 module Router(input [63:0] in_left, in_right, in_up, in_down, 
 input signed[31:0] from_cpu, input [15:0] in_x_cpu, in_y_cpu,
  output reg [63:0] left, right, up, down,

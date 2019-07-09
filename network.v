@@ -124,6 +124,7 @@ initial begin
 	rst = 1;
 	enable = 1;
 	#450 rst = 0;
+	#900 $finish;
 	
 end
 
