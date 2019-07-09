@@ -40,7 +40,7 @@ CPU p7(clk , rst, enable, c7, imw7, to_cpu7,itw7, ar7,o_p7, pc7, ir7, flags7);
 CPU p8(clk , rst, enable, c8, imw8, to_cpu8,itw8, ar8,o_p8, pc8, ir8, flags8);
 CPU p9(clk , rst, enable, c9, imw9, to_cpu9,itw9, ar9,o_p9, pc9, ir9, flags9);
 
-Router r1(freenet,out_left1,freenet,out_up4,o_p1,16'h0003 , 16'h0003,out_left1,out_right1,out_up1,out_down1,to_cpu1,set_fi1);
+Router r1(freenet,out_left2,freenet,out_up4,o_p1,16'h0003 , 16'h0003,out_left1,out_right1,out_up1,out_down1,to_cpu1,set_fi1);
 Router r2(out_right1,out_left3,freenet,out_up5,o_p2,16'h0003 , 16'h0003,out_left2,out_right2,out_up2,out_down2,to_cpu2,set_fi2);
 Router r3(out_right2,freenet,freenet,out_up6,o_p3,16'h0003 , 16'h0003,out_left3,out_right3,out_up3,out_down3,to_cpu3,set_fi3);
 
