@@ -29,7 +29,7 @@ reg [63:0] in_left1,in_right1,in_up1,in_down1,in_left2,in_right2,in_up2,in_down2
  in_left7,in_right7,in_up7,in_down7,in_left8,in_right8,in_up8,in_down8,in_left9,in_right9,in_up9,in_down9;
 
 //output of routers
-wire [63:0] out_left1,out_right1,out_up1,out_down1,iout_left2,out_right2,out_up2,out_down2,out_left3,out_right3,out_up3,out_down3,
+wire [63:0] out_left1,out_right1,out_up1,out_down1,out_left2,out_right2,out_up2,out_down2,out_left3,out_right3,out_up3,out_down3,
  out_left4,out_right4,out_up4,out_down4,out_left5,out_right5,out_up5,out_down5,out_left6,out_right6,out_up6,out_down6,
  out_left7,out_right7,out_up7,out_down7,out_left8,out_right8,out_up8,out_down8,out_left9,out_right9,out_up9,out_down9;
 
@@ -126,12 +126,7 @@ initial begin
 	clk = 0;
 	rst = 1;
 	enable = 1;
-	#10 itw1 = 32'b01001010100000000000000000000000;
-	 itw2 = 32'b01001010100000000000000000000000;
-	 itw3 = 32'b01001010100000000000000000000000;
-	 itw4 = 32'b01001010100000000000000000000000;
-	 itw5 = 32'b01001000010000000000000000000001;
-	 itw6 = 32'b01001000010000000000000000000001;
+
 	#450 rst = 0;
 	#900 $finish;
 	
