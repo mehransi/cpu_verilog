@@ -26,7 +26,7 @@ reg [63:0] in_left1,in_right1,in_up1,in_down1,in_left2,in_right2,in_up2,in_down2
  in_left7,in_right7,in_up7,in_down7,in_left8,in_right8,in_up8,in_down8,in_left9,in_right9,in_up9,in_down9;
 
 //output of routers
-reg [63:0] out_left1,out_right1,out_up1,out_down1,iout_left2,out_right2,out_up2,out_down2,out_left3,out_right3,out_up3,out_down3,
+wire [63:0] out_left1,out_right1,out_up1,out_down1,iout_left2,out_right2,out_up2,out_down2,out_left3,out_right3,out_up3,out_down3,
  out_left4,out_right4,out_up4,out_down4,out_left5,out_right5,out_up5,out_down5,out_left6,out_right6,out_up6,out_down6,
  out_left7,out_right7,out_up7,out_down7,out_left8,out_right8,out_up8,out_down8,out_left9,out_right9,out_up9,out_down9;
 
@@ -34,10 +34,10 @@ reg [63:0] out_left1,out_right1,out_up1,out_down1,iout_left2,out_right2,out_up2,
 reg [31:0] from_cpu1,from_cpu2,from_cpu3,from_cpu4,from_cpu5,from_cpu6,from_cpu7,from_cpu8,from_cpu9;
 
 //router to cpu
-reg [31:0] to_cpu1,to_cpu2,to_cpu3,to_cpu4,to_cpu5,to_cpu6,to_cpu7,to_cpu8,to_cpu9;
+wire [31:0] to_cpu1,to_cpu2,to_cpu3,to_cpu4,to_cpu5,to_cpu6,to_cpu7,to_cpu8,to_cpu9;
 
 // router flag set
-reg set_fi1 = 1,set_fi2 = 1,set_fi3 = 1,set_fi4 = 1,set_fi5 = 1,set_fi6 = 1,set_fi7 = 1,set_fi8 = 1,set_fi9 = 1;
+wire set_fi1 = 1,set_fi2 = 1,set_fi3 = 1,set_fi4 = 1,set_fi5 = 1,set_fi6 = 1,set_fi7 = 1,set_fi8 = 1,set_fi9 = 1;
 
 //wires between routers
 wire [63:0] RRwire1_2, RRwire1_4, RRwire2_1, RRwire2_3, RRwire2_5, RRwire3_2, RRwire3_6, RRwire4_1, RRwire4_5, RRwire4_7, RRwire5_2, RRwire5_4, RRwire5_6, RRwire5_8,
