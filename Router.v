@@ -37,22 +37,22 @@ task packet_reached;
 input reg [63:0] a;
 reg [15:0] in_x, in_y;  // target x and y
 begin
-	in_x = in_left[47:32];
-	in_y = in_left[63:48];
+	in_x = a[47:32];
+	in_y = a[63:48];
 	
 	if (x == in_x && y == in_y) begin
-		to_cpu = in_left[31:0];
+		to_cpu = a[31:0];
 		set_fi = 1;
 		#5 set_fi = 0;
 	end
 	else if(x < in_x) //send to right
-		right = in_left;
+		right = a;
 	else if(x > in_x)
-		left = in_left;
+		left = a;
 	else if(y < in_y)
-		up = in_left;
+		up = a;
 	else
-		down = in_left;
+		down = a;
 end
 endtask
 
