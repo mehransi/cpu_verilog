@@ -1,5 +1,5 @@
 `timescale 1ns / 1ps
-module Router(input [15:0] x,input [15:0] y,input [63:0] in_left, in_right, in_up, in_down, 
+module Router(input [63:0] in_left, in_right, in_up, in_down, 
 input signed[31:0] from_cpu, input [15:0] in_x_cpu, in_y_cpu,
  output reg [63:0] left, right, up, down,
  output reg signed [31:0] to_cpu, output reg set_fi);
@@ -7,7 +7,7 @@ input signed[31:0] from_cpu, input [15:0] in_x_cpu, in_y_cpu,
 //data is the part [31:0] of 64 bit data
 // [63:48] is y and [47:32] is x
 
-//parameter x = 1, y = 1;
+parameter x = 1, y = 1;
 
 always @(in_left)
 	packet_reached(in_left);
