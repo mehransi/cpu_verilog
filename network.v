@@ -2,13 +2,15 @@
 module network;
 reg clk, rst, enable;
 reg c1 = 1, c2 = 1, c3 = 1, c4 = 1, c5 = 1, c6 = 1, c7 = 1, c8 = 1, c9 = 1;  //counter of instructions for ins memory
-reg imw1, imw2, imw3, imw4, imw5, imw6, imw7, imw8, imw9; //ins_mem_write
+reg imw1 = 1, imw2 = 1, imw3 = 1, imw4 = 1, imw5 = 1, imw6 = 1, imw7 = 1, imw8 = 1, imw9 = 1; //ins_mem_write
 
 
 
 //input ports
 reg signed [31:0] in_p1, in_p2, in_p3, in_p4, in_p5, in_p6, in_p7, in_p8, in_p9;
 reg [31:0] itw1, itw2, itw3, itw4, itw5, itw6, itw7, itw8, itw9; //instruction_to_write
+
+
 
 //output ports
 wire signed [31:0] o_p1, o_p2, o_p3, o_p4, o_p5, o_p6, o_p7, o_p8, o_p9;
@@ -18,7 +20,8 @@ wire signed [31:0] ar1, ar2, ar3, ar4, ar5, ar6, ar7, ar8, ar9;
 wire [31:0] pc, ir, rin, rout;
 
 //flags
-wire [7:0] flags1 = 1, flags2 = 1, flags3 = 1, flags4 = 1, flags5 = 1, flags6 = 1, flags7 = 1, flags8 = 1, flags9 = 1;
+wire [7:0] flags1 = 8'b00000000, flags2 = 8'b00000000, flags3 = 8'b00000000, flags4 = 8'b00000000, flags5 = 8'b00000000
+, flags6 = 8'b00000000, flags7 = 8'b00000000, flags8 = 8'b00000000, flags9 = 8'b00000000;
 
 //input of routers
 reg [63:0] in_left1,in_right1,in_up1,in_down1,in_left2,in_right2,in_up2,in_down2,in_left3,in_right3,in_up3,in_down3,
@@ -57,15 +60,15 @@ CPU p7(clk , rst, enable, c7, imw7, in_p7,itw7, ar7,o_p7, pc7, ir7, flags7);
 CPU p8(clk , rst, enable, c8, imw8, in_p8,itw8, ar8,o_p8, pc8, ir8, flags8);
 CPU p9(clk , rst, enable, c9, imw9, in_p9,itw9, ar9,o_p9, pc9, ir9, flags9);
 
-Router r1(in_left1,in_right1,in_up1,in_down1,from_cpu1,16'h0009 , 16'h0009,out_left1,out_right1,out_up1,out_down1,to_cpu1,set_fi1);
-Router r2(in_left2,in_right2,in_up2,in_down2,from_cpu2,16'h0009 , 16'h0009,out_left2,out_right2,out_up2,out_down2,to_cpu2,set_fi2);
-Router r3(in_left3,in_right3,in_up3,in_down3,from_cpu3,16'h0009 , 16'h0009,out_left3,out_right3,out_up3,out_down3,to_cpu3,set_fi3);
-Router r4(in_left4,in_right4,in_up4,in_down4,from_cpu4,16'h0009 , 16'h0009,out_left4,out_right4,out_up4,out_down4,to_cpu4,set_fi4);
-Router r5(in_left5,in_right5,in_up5,in_down5,from_cpu5,16'h0009 , 16'h0009,out_left5,out_right5,out_up5,out_down5,to_cpu5,set_fi5);
-Router r6(in_left6,in_right6,in_up6,in_down6,from_cpu6,16'h0009 , 16'h0009,out_left6,out_right6,out_up6,out_down6,to_cpu6,set_fi6);
-Router r7(in_left7,in_right7,in_up7,in_down7,from_cpu7,16'h0009 , 16'h0009,out_left7,out_right7,out_up7,out_down7,to_cpu7,set_fi7);
-Router r8(in_left8,in_right8,in_up8,in_down8,from_cpu8,16'h0009 , 16'h0009,out_left8,out_right8,out_up8,out_down8,to_cpu8,set_fi8);
-Router r9(in_left9,in_right9,in_up9,in_down9,from_cpu9,16'h0009 , 16'h0009,out_left9,out_right9,out_up9,out_down9,to_cpu9,set_fi9);
+Router r1(16'h0001,16'h0001,in_left1,in_right1,in_up1,in_down1,from_cpu1,16'h0003 , 16'h0003,out_left1,out_right1,out_up1,out_down1,to_cpu1,set_fi1);
+Router r2(16'h0002,16'h0001,in_left2,in_right2,in_up2,in_down2,from_cpu2,16'h0003 , 16'h0003,out_left2,out_right2,out_up2,out_down2,to_cpu2,set_fi2);
+Router r3(16'h0003,16'h0001,in_left3,in_right3,in_up3,in_down3,from_cpu3,16'h0003 , 16'h0003,out_left3,out_right3,out_up3,out_down3,to_cpu3,set_fi3);
+Router r4(16'h0001,16'h0002,in_left4,in_right4,in_up4,in_down4,from_cpu4,16'h0003 , 16'h0003,out_left4,out_right4,out_up4,out_down4,to_cpu4,set_fi4);
+Router r5(16'h0002,16'h0002,in_left5,in_right5,in_up5,in_down5,from_cpu5,16'h0003 , 16'h0003,out_left5,out_right5,out_up5,out_down5,to_cpu5,set_fi5);
+Router r6(16'h0003,16'h0002,in_left6,in_right6,in_up6,in_down6,from_cpu6,16'h0003 , 16'h0003,out_left6,out_right6,out_up6,out_down6,to_cpu6,set_fi6);
+Router r7(16'h0001,16'h0003,in_left7,in_right7,in_up7,in_down7,from_cpu7,16'h0003 , 16'h0003,out_left7,out_right7,out_up7,out_down7,to_cpu7,set_fi7);
+Router r8(16'h0002,16'h0003,in_left8,in_right8,in_up8,in_down8,from_cpu8,16'h0003 , 16'h0003,out_left8,out_right8,out_up8,out_down8,to_cpu8,set_fi8);
+Router r9(16'h0003,16'h0003,in_left9,in_right9,in_up9,in_down9,from_cpu9,16'h0003 , 16'h0003,out_left9,out_right9,out_up9,out_down9,to_cpu9,set_fi9);
 
 assign RCwire1_1 = to_cpu1;
 assign RCwire2_2 = to_cpu2;
@@ -117,12 +120,15 @@ assign RRwire9_8 = out_left9;
 
 
 always 
-	#86 clk = ~clk;
+	#1 clk = ~clk;
 
 initial begin
 	clk = 0;
 	rst = 1;
 	enable = 1;
+	#10 itw1 = 32'b01001010100000000000000000000000;
+	#10 itw2 = 32'b01001000010000000000000000000001;
+	#10 itw3 = 32'b01001000010000000000000000000001;
 	#450 rst = 0;
 	#900 $finish;
 	
