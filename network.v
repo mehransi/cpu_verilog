@@ -90,7 +90,7 @@ assign CRwire7_7 = o_p7;
 assign CRwire8_8 = o_p8;
 assign CRwire9_9 = o_p9;
 
-assign RRwire1_2 = out_left1;
+assign RRwire1_2 = out_right1;
 assign RRwire1_4 = out_down1;
 assign RRwire2_1 = out_left2;
 assign RRwire2_3 = out_right2;
@@ -127,8 +127,11 @@ initial begin
 	rst = 1;
 	enable = 1;
 	#10 itw1 = 32'b01001010100000000000000000000000;
-	#10 itw2 = 32'b01001000010000000000000000000001;
-	#10 itw3 = 32'b01001000010000000000000000000001;
+	 itw2 = 32'b01001010100000000000000000000000;
+	 itw3 = 32'b01001010100000000000000000000000;
+	 itw4 = 32'b01001010100000000000000000000000;
+	 itw5 = 32'b01001000010000000000000000000001;
+	 itw6 = 32'b01001000010000000000000000000001;
 	#450 rst = 0;
 	#900 $finish;
 	
