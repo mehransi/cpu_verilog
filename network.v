@@ -60,7 +60,7 @@ CPU p7(clk , rst, enable, c7, imw7, in_p7,itw7, ar7,o_p7, pc7, ir7, flags7);
 CPU p8(clk , rst, enable, c8, imw8, in_p8,itw8, ar8,o_p8, pc8, ir8, flags8);
 CPU p9(clk , rst, enable, c9, imw9, in_p9,itw9, ar9,o_p9, pc9, ir9, flags9);
 
-Router r1(16'h0001,16'h0001,in_left1,in_right1,in_up1,in_down1,from_cpu1,16'h0003 , 16'h0003,out_left1,out_right1,out_up1,out_down1,to_cpu1,set_fi1);
+Router r1(16'h0001,16'h0001,64'h0003000300030003,in_right1,in_up1,in_down1,from_cpu1,16'h0003 , 16'h0003,out_left1,out_right1,out_up1,out_down1,to_cpu1,set_fi1);
 Router r2(16'h0002,16'h0001,in_left2,in_right2,in_up2,in_down2,from_cpu2,16'h0003 , 16'h0003,out_left2,out_right2,out_up2,out_down2,to_cpu2,set_fi2);
 Router r3(16'h0003,16'h0001,in_left3,in_right3,in_up3,in_down3,from_cpu3,16'h0003 , 16'h0003,out_left3,out_right3,out_up3,out_down3,to_cpu3,set_fi3);
 Router r4(16'h0001,16'h0002,in_left4,in_right4,in_up4,in_down4,from_cpu4,16'h0003 , 16'h0003,out_left4,out_right4,out_up4,out_down4,to_cpu4,set_fi4);
@@ -126,7 +126,10 @@ initial begin
 	clk = 0;
 	rst = 1;
 	enable = 1;
-
+	#10
+	itw1 = 32'b01001010100000000000000000000000;
+	itw2 = 32'b01001000010000000000000000000001;
+	itw3 = 32'b01001000010000000000000000000001;
 	#450 rst = 0;
 	#900 $finish;
 	
